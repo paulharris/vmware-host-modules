@@ -1025,6 +1025,9 @@ VNetUserIfSetUplinkState(VNetPort *port, uint8 linkUp)
    userIf = (VNetUserIF *)port->jack.private;
    hubJack = port->jack.peer;
 
+   /* never send link down events */
+   if (!linkUp) return 0;
+
    if (port->jack.state == FALSE || hubJack == NULL) {
       return -EINVAL;
    }
